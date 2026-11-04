@@ -1,6 +1,7 @@
 import { esc } from '../core';
 import { setActionBusy } from '../ui-kit/controls';
 import { spinnerHtml } from '../ui-kit/markup';
+import { showServerPath } from '../react/components/server-path-dialog';
 
 export interface SourceActionPorts {
   request(id: number): Promise<unknown>;
@@ -21,9 +22,10 @@ export function createRevealSourceAction(ports: SourceActionPorts) {
     }
     status.textContent = '';
     try {
-      await ports.request(id);
+      const result = await ports.request(id) as { mode?: string; path?: string } | undefined;
       status.textContent = '';
-      ports.success();
+      if (result?.mode === 'server' && result.path) await showServerPath(result.path);
+      else ports.success();
     } catch (error) {
       status.textContent = ports.failureText(error);
     } finally {

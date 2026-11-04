@@ -4,6 +4,7 @@
  * 「首次设置的内部流程」：错误正文是 `{error, errors?}`，`errors` 按题目 key 给，媒体目录那一项是
  * 与行对应的列表，整表不成立时是只有一句话的列表。 */
 import { PICK_FOLDER_URL } from '../../../configuration-endpoints';
+import { pickServerFolder, type FolderReply } from '../../components/server-path-dialog';
 
 export const SETUP_QUESTIONS_URL = '/api/setup/questions';
 export const SETUP_URL = '/api/setup';
@@ -113,7 +114,7 @@ export const restoreSetup = (dataRoot: string) =>
   request<SetupDone>(`${SETUP_URL}/restore`, { method: 'POST', body: JSON.stringify({ data_root: dataRoot }) }, '没能使用此数据目录');
 
 export const pickFolder = async (initial: string) =>
-  (await request<{ path: string | null }>(PICK_FOLDER_URL,
-    { method: 'POST', body: JSON.stringify({ initial }) }, '没能打开文件夹对话框')).path;
+  pickServerFolder(initial, path => request<FolderReply>(PICK_FOLDER_URL,
+    { method: 'POST', body: JSON.stringify({ initial: path }) }, '没能读取文件夹'));
 
 export const describeFailure = (cause: unknown) => (cause instanceof Error && cause.message) || '请求失败，请重试';

@@ -13,7 +13,7 @@ import sys
 from types import SimpleNamespace
 
 TIMEOUT_SECONDS = 20.0
-OPERATIONS = ('directory', 'files', 'nfo', 'art', 'online', 'resolve', 'stat')
+OPERATIONS = ('directory', 'files', 'nfo', 'art', 'online', 'resolve', 'stat', 'browse')
 
 
 def _request(operation, path, *, value='', timeout=None):
@@ -114,6 +114,9 @@ def _attributes(stat):
 
 
 def _read(operation, path, value):
+    if operation == 'browse':
+        from .nas_directories import list_directory
+        return list_directory(path, json.loads(value))
     if operation == 'directory':
         from .smb_media import SmbResource
         if isinstance(path, SmbResource):
