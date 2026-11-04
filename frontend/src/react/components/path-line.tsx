@@ -7,7 +7,7 @@ import { cx } from '@/utils/cx';
 
 import { ApiError, apiSend } from '../../api';
 import { busyProps } from '../settings/use-action';
-import { showServerPath } from './server-path-dialog';
+import { showServerPath, type ServerPathReply } from './server-path-dialog';
 
 /** 全站「打开位置」那一枚。雪碧图里的 `folder-open`，Remix Icon 没有对应的一枚。 */
 function FolderOpenIcon({ className }: { className?: string }) {
@@ -46,8 +46,8 @@ export function PathLine(
     setBusy(true);
     setProblem('');
     try {
-      const result = await apiSend<{ mode?: string; path?: string }>('/api/reveal', { path });
-      if (result.mode === 'server' && result.path) await showServerPath(result.path);
+      const result = await apiSend<ServerPathReply & { mode?: string }>('/api/reveal', { path });
+      if (result.mode === 'server' && result.path) await showServerPath(result);
       else onRevealed?.('已在资源管理器中显示');
     } catch (error) {
       if (alive.current) setProblem(error instanceof ApiError ? error.message : UNREACHED);

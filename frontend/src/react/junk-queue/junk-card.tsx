@@ -110,10 +110,10 @@ function JunkCardView({ item, view, selected, selectMode, helpers, actions }: Ju
         </div>
       </div>
       <footer data-junk-actions="">
-        <button type="button" data-junk-action="reveal" title="在资源管理器中显示" aria-label="在资源管理器中显示"
+        <button type="button" data-junk-action="reveal" title="查看文件位置" aria-label="查看文件位置"
           {...busyAttrs('reveal')} onClick={reveal}>
           {busy === 'reveal' ? <span data-junk-spinner="" dangerouslySetInnerHTML={{ __html: spinnerHtml('正在定位') }} /> : <Icon name="folder-open" />}
-          <span data-junk-label="">打开位置</span>
+          <span data-junk-label="">查看位置</span>
         </button>
         <button type="button" data-junk-action={decision.operation} title={decision.label} aria-label={decision.label}
           {...busyAttrs(decision.operation)} onClick={operate(decision.operation)}>

@@ -130,7 +130,8 @@ def reveal(request: Request, body: dict[str, Any] = Body(default_factory=dict), 
                                  "message": "这个位置已经不在了"}, status_code=410)
         try:
             if not reveal_path(target):
-                return {"ok": True, "mode": "server", "path": str(target)}
+                from .nas_directories import file_position
+                return {"ok": True, **file_position(target)}
         except OSError as error:
             LOGGER.warning("reveal failed for %s: %s", target, error)
             return JSONResponse({"error": "reveal failed",
@@ -155,7 +156,8 @@ def reveal(request: Request, body: dict[str, Any] = Body(default_factory=dict), 
             status_code=410)
     try:
         if not reveal_path(target):
-            return {"ok": True, "mode": "server", "path": str(target), "id": asset_id,
+            from .nas_directories import file_position
+            return {"ok": True, **file_position(target, asset.path), "id": asset_id,
                     "location": asset.location}
     except OSError as error:
         LOGGER.warning("reveal failed for asset %s: %s", asset_id, error)

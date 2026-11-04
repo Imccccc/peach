@@ -1,7 +1,7 @@
 (function() {
 	try {
 		var e = typeof globalThis < "u" ? globalThis : typeof window < "u" ? window : typeof global < "u" ? global : typeof self < "u" ? self : {}, t = new e.Error().stack;
-		t && (e._sentryDebugIds = e._sentryDebugIds || {}, e._sentryDebugIds[t] = "60a26c41-55b6-46bc-9c8c-350731781cee", e._sentryDebugIdIdentifier = "sentry-dbid-60a26c41-55b6-46bc-9c8c-350731781cee");
+		t && (e._sentryDebugIds = e._sentryDebugIds || {}, e._sentryDebugIds[t] = "0daf72ed-cd81-4cb9-8ac0-ed160c4a29e7", e._sentryDebugIdIdentifier = "sentry-dbid-0daf72ed-cd81-4cb9-8ac0-ed160c4a29e7");
 	} catch {}
 })();
 import { AnimatedItems as e, Cell as t, ChartBackground as n, ChartContainer as r, ChartLegend as i, ChartLegendContent as a, ChartTip as o, ChartTooltip as s, ChartTooltipContent as c, Curve as l, DATA_ITEM_GRAPHICAL_ITEM_ID_ATTRIBUTE_NAME as u, DATA_ITEM_INDEX_ATTRIBUTE_NAME as d, DefaultZIndexes as f, EvilBarChart as p, LabelList as m, LabelListFromLabelProp as h, Layer as g, LoadingIndicator as _, PolarChart as v, PolarLabelContextProvider as y, PolarLabelListContextProvider as b, RegisterGraphicalItemId as x, Sector as S, SetPolarGraphicalItem as C, SetPolarLegendPayload as w, SetTooltipEntrySettings as T, Shape as ee, TIP_SWATCH as te, Text as ne, ZIndexLayer as re, adaptEventsOfChild as ie, arrayTooltipSearcher as ae, createSelector as oe, defaultPolarChartProps as se, findAllByType as ce, get as le, getClassNameFromUnknown as ue, getColorsCount as de, getMaxRadius as fe, getPercentValue as pe, getTooltipNameProp as me, getValueByDataKey as he, interpolate as ge, isNumber as _e, matchAppend as ve, mathSign as ye, polarToCartesian as be, resolveDefaultProps as xe, selectActiveTooltipDataKey as Se, selectActiveTooltipGraphicalItemId as Ce, selectActiveTooltipIndex as we, selectChartDataAndAlwaysIgnoreIndexes as Te, selectChartOffsetInternal as Ee, selectUnfilteredPolarItems as De, svgPropertiesNoEvents as Oe, svgPropertiesNoEventsFromUnknown as ke, tone as Ae, useAnimationCallbacks as je, useAppSelector as Me, useMouseClickItemDispatch as Ne, useMouseEnterItemDispatch as Pe, useMouseLeaveItemDispatch as Fe, usePolarChartLayout as Ie } from "./peach-app.chart-tip-CRxYp6KT.js";
@@ -1955,7 +1955,7 @@ function sa({ initial: e, receipt: t }) {
 			onConfirm: async () => r(await G(`${$i}/clean`, { categories: e.map((e) => e.key) }))
 		});
 	}, g = () => void c.run("relocate", async (e) => {
-		let t = (await G(xt, { initial: n.data_root }, "POST", e)).path;
+		let t = await _n(n.data_root, (t) => G(xt, t, "POST", e), "data");
 		if (!t) return;
 		let r = n.usage ? J(n.usage.total_bytes) : "";
 		await Qt({
@@ -3361,7 +3361,7 @@ async function Ka(e) {
 	});
 	return n;
 }
-var qa = (e) => Gn.find(([t]) => t === e)?.[1] ?? e, Ja = [...Gn, ["smb", "SMB 共享"]], Ya = (e) => e.library_icon || Na(e.transport === "smb" ? "smb" : e.location)[0], Xa = async (e) => _n(e, (e) => G(xt, { initial: e })), Za = (e) => ({
+var qa = (e) => Gn.find(([t]) => t === e)?.[1] ?? e, Ja = [...Gn, ["smb", "SMB 共享"]], Ya = (e) => e.library_icon || Na(e.transport === "smb" ? "smb" : e.location)[0], Xa = async (e) => _n(e, (e) => G(xt, e)), Za = (e) => ({
 	library_id: e.library_id,
 	library: e.library,
 	library_icon: e.library_icon,
@@ -5526,4 +5526,4 @@ function is({ data: e, receipt: t, reopenTutorial: n, section: r, diagnostics: i
 }
 export { ts as ConfigurationPage };
 
-//# debugId=60a26c41-55b6-46bc-9c8c-350731781cee
+//# debugId=0daf72ed-cd81-4cb9-8ac0-ed160c4a29e7

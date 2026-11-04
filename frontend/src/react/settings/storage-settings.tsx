@@ -21,6 +21,7 @@ import { AnimatedNumber } from '../components/animated-number';
 import { cardClass } from '../components/card';
 import { LoadingDots } from '../components/loading-dots';
 import { PathLine } from '../components/path-line';
+import { pickServerFolder, type FolderReply } from '../components/server-path-dialog';
 import { Progress } from '../components/progress';
 import { ErrorText, Fact, FactList, Footer, Help, Stack, Section } from './section';
 import { CATEGORY_SWATCH, REST_SWATCH, StorageOverview } from './storage-charts';
@@ -142,7 +143,8 @@ export function StorageSettings({ initial, receipt }: { initial: StorageState; r
   };
 
   const relocate = () => void action.run('relocate', async (signal) => {
-    const target = (await apiSend<{ path: string | null }>(PICK_FOLDER_URL, { initial: storage.data_root }, 'POST', signal)).path;
+    const target = await pickServerFolder(storage.data_root,
+      body => apiSend<FolderReply>(PICK_FOLDER_URL, body, 'POST', signal), 'data');
     if (!target) return;
     const size = storage.usage ? fmtSize(storage.usage.total_bytes) : '';
     await confirmModal({

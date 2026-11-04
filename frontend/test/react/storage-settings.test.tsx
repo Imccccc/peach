@@ -5,7 +5,7 @@ import * as legacyUi from '@peach/legacy/ui';
 
 import type { StorageCategory, StorageState } from '../../src/react/bundle';
 import { StorageSettings } from '../../src/react/settings/storage-settings';
-import { buttonNamed, click, fetchMock, mount, sentBody, settle } from './render';
+import { buttonNamed, click, fetchMock, mount, sentBody, settle, type } from './render';
 
 const category = (key: string, label: string, bytes: number, reclaimable: number, cleanable: boolean,
                   note: string): StorageCategory =>
@@ -100,4 +100,18 @@ it('容器部署不给更改位置，列出在宿主机上迁移的几步', asyn
   const steps = host.querySelector('ol[aria-label="在宿主机上迁移"]')!;
   expect([...steps.querySelectorAll('code')].map((node) => node.textContent))
     .toEqual(['docker compose down', 'docker compose up -d']);
+});
+
+it('服务端迁移选择数据目录，确认前不提交迁移', async () => {
+  const seen = confirmWith(false);
+  const fetcher = fetchMock(200, { mode: 'manual', path: '/data', editable: true, message: '填写服务端数据目录' });
+  vi.stubGlobal('fetch', fetcher);
+  const host = await mount(<StorageSettings initial={measured} receipt={vi.fn()} />);
+  await click(buttonNamed('更改位置', host));
+  expect(sentBody(fetcher)).toEqual({ initial: measured.data_root, purpose: 'data', start: true });
+  await type(document.querySelector<HTMLInputElement>('input[aria-label="服务端数据目录"]'), '/srv/peach-data');
+  await click(buttonNamed('使用此目录'));
+  await settle();
+  expect(String(seen[0]!.body)).toContain('/srv/peach-data');
+  expect(fetcher).toHaveBeenCalledTimes(1);
 });

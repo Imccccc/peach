@@ -113,8 +113,8 @@ export const submitSetup = (submission: SetupSubmission) =>
 export const restoreSetup = (dataRoot: string) =>
   request<SetupDone>(`${SETUP_URL}/restore`, { method: 'POST', body: JSON.stringify({ data_root: dataRoot }) }, '没能使用此数据目录');
 
-export const pickFolder = async (initial: string) =>
-  pickServerFolder(initial, path => request<FolderReply>(PICK_FOLDER_URL,
-    { method: 'POST', body: JSON.stringify({ initial: path }) }, '没能读取文件夹'));
+export const pickFolder = async (initial: string, purpose: 'media' | 'data' = 'media') =>
+  pickServerFolder(initial, body => request<FolderReply>(PICK_FOLDER_URL,
+    { method: 'POST', body: JSON.stringify(body) }, '没能读取文件夹'), purpose);
 
 export const describeFailure = (cause: unknown) => (cause instanceof Error && cause.message) || '请求失败，请重试';

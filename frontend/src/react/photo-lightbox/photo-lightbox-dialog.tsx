@@ -192,7 +192,7 @@ function PhotoLightbox({ slides, index, Swiper, host: actions }: {
     setBroken((prev) => new Set(prev).add(at));
   };
   const apply = (raw: number | 'fit') => zoom.current?.apply(raw);
-  const revealLabel = '<span>在资源管理器中显示</span>';
+  const revealLabel = '<span>查看文件位置</span>';
 
   return (
     <dialog ref={box} aria-label="图片浏览" data-photo-lightbox="" data-has-strip={many ? '' : undefined}
