@@ -2,7 +2,7 @@
 (function() {
 	try {
 		var e = typeof globalThis < "u" ? globalThis : typeof window < "u" ? window : typeof global < "u" ? global : typeof self < "u" ? self : {}, t = new e.Error().stack;
-		t && (e._sentryDebugIds = e._sentryDebugIds || {}, e._sentryDebugIds[t] = "34352bfa-f655-4505-94e7-608fb982fee7", e._sentryDebugIdIdentifier = "sentry-dbid-34352bfa-f655-4505-94e7-608fb982fee7");
+		t && (e._sentryDebugIds = e._sentryDebugIds || {}, e._sentryDebugIds[t] = "49b51750-ab1e-4885-a3e4-d00ff8d5f54b", e._sentryDebugIdIdentifier = "sentry-dbid-49b51750-ab1e-4885-a3e4-d00ff8d5f54b");
 	} catch {}
 })();
 var e = Object.create, t = Object.defineProperty, n = Object.getOwnPropertyDescriptor, r = Object.getOwnPropertyNames, i = Object.getPrototypeOf, a = Object.prototype.hasOwnProperty, o = (e, t) => () => (t || (e((t = { exports: {} }).exports, t, t.exports), e = null), t.exports), s = (e, i, o, s) => {
@@ -19861,7 +19861,7 @@ function sh({ reply: e, close: t }) {
 						onClick: () => t(null),
 						children: e.editable === !1 ? "关闭" : "取消"
 					}), e.editable === !1 ? null : /* @__PURE__ */ (0, B.jsx)(Lt, {
-						isDisabled: !n.trim(),
+						disabled: !n.trim(),
 						onClick: () => t(n.trim()),
 						children: "使用此目录"
 					})]
@@ -19965,10 +19965,10 @@ function ch({ initial: e, initialPath: t, request: n, close: r }) {
 						onClick: () => r(null),
 						children: "取消"
 					}), /* @__PURE__ */ (0, B.jsx)(Lt, {
-						isDisabled: !i.path || o !== i.path,
+						disabled: !i.path || o !== i.path,
 						...rh(c),
 						onClick: () => {
-							p.current || r(i.path);
+							!p.current && i.path && o === i.path && r(i.path);
 						},
 						children: "选择此目录"
 					})]
@@ -23046,4 +23046,4 @@ E();
 var Ov = document.getElementById("peach-page"), kv = Ov ? Dv[Ov.dataset.page ?? ""] : void 0;
 Ov && kv && (0, M.createRoot)(Ov).render(/* @__PURE__ */ (0, B.jsx)(kv, { data: { ...Ov.dataset } }));
 
-//# debugId=34352bfa-f655-4505-94e7-608fb982fee7
+//# debugId=49b51750-ab1e-4885-a3e4-d00ff8d5f54b
