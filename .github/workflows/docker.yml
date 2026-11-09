@@ -39,3 +39,17 @@ jobs:
           cache-to: type=gha,mode=max
       - name: 验收临时容器
         run: python3 scripts/smoke_docker.py longmeidao/peach:test
+      - name: 导出已验收镜像供 NAS 离线验证
+        run: |
+          docker image inspect longmeidao/peach:test --format '{{.Id}}' > image-id.txt
+          docker save longmeidao/peach:test | gzip -1 > peach-nas-b1d5eef4.tar.gz
+          sha256sum peach-nas-b1d5eef4.tar.gz > SHA256SUMS
+      - uses: actions/upload-artifact@v7
+        with:
+          name: peach-nas-b1d5eef4
+          path: |
+            peach-nas-b1d5eef4.tar.gz
+            SHA256SUMS
+            image-id.txt
+          retention-days: 2
+          compression-level: 0
